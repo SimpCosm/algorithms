@@ -1,3 +1,11 @@
+// Package kmp implements the Knuth-Morris-Pratt algorithm (KMP) in Golang.
+//
+// The KMP algorithm searches for occurrences of a `word` W within a main `text string` S
+// by employing the observation that when mismatch occurs, the word itself embodies sufficient
+// information to determine where the next match could begin, the bypassing re-examination of
+// previously matched characters.
+//
+// More understanding can refer to http://houmin.cc/2018/09/13/string-kmp
 package kmp
 
 import (
