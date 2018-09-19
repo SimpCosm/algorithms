@@ -2,7 +2,7 @@
 //
 // The KMP algorithm searches for occurrences of a `word` W within a main `text string` S
 // by employing the observation that when mismatch occurs, the word itself embodies sufficient
-// information to determine where the next match could begin, the bypassing re-examination of
+// information to determine where the Next match could begin, the bypassing re-examination of
 // previously matched characters.
 package kmp
 
@@ -12,13 +12,13 @@ import (
 )
 
 type KMP struct {
-	pattern string
-	next    []int
-	size    int
+	Pattern string
+	Next    []int
+	Size    int
 }
 
 func (kmp *KMP) String() string {
-	return fmt.Sprintf("pattern: %v\nnext: %v", kmp.pattern, kmp.next)
+	return fmt.Sprintf("pattern: %v\nNext: %v", kmp.pattern, kmp.Next)
 }
 
 // returns an array containing indexes of matches
@@ -46,37 +46,37 @@ func buildTable(pattern string) ([]int, error) {
 	return t, nil
 }
 
-// NewKMP compile new next-table from given pattern.
+// NewKMP compile new Next-table from given pattern.
 func NewKMP(pattern string) (*KMP, error) {
 	next, err := buildTable(pattern)
 	if err != nil {
 		return nil, err
 	}
 	return &KMP{
-		pattern: pattern,
-		next:    next,
-		size:    len(pattern),
+		Pattern: pattern,
+		Next:    next,
+		Size:    len(pattern),
 	}, nil
 }
 
-// FindStringIndex returns index of first occurence of kmp.pattern in argument 's'
+// FindStringIndex returns index of first occurence of kmp.Pattern in argument 's'
 // - if not found, returns -1
 func (kmp *KMP) FindStringIndex(s string) int {
 	// sanity check
-	if len(s) < kmp.size {
+	if len(s) < kmp.Size {
 		return -1
 	}
 
 	j, k := 0, 0
 	for j < len(s) {
-		if kmp.pattern[k] == s[j] {
+		if kmp.Pattern[k] == s[j] {
 			j++
 			k++
-			if k == kmp.size {
+			if k == kmp.Size {
 				return j - k
 			}
 		} else {
-			k = kmp.next[k]
+			k = kmp.Next[k]
 			if k < 0 {
 				j++
 				k++
@@ -86,11 +86,11 @@ func (kmp *KMP) FindStringIndex(s string) int {
 	return -1
 }
 
-// FindAllStringIndex finds every occcurence of the kmp.pattern in 's'
+// FindAllStringIndex finds every occcurence of the kmp.Pattern in 's'
 func (kmp *KMP) FindAllStringIndex(s string) []int {
 	lenS := len(s)
 
-	if lenS < kmp.size {
+	if lenS < kmp.Size {
 		return []int{}
 	}
 
@@ -98,15 +98,15 @@ func (kmp *KMP) FindAllStringIndex(s string) []int {
 
 	j, k := 0, 0
 	for j < len(s) {
-		if kmp.pattern[k] == s[j] {
+		if kmp.Pattern[k] == s[j] {
 			j++
 			k++
-			if k == kmp.size {
+			if k == kmp.Size {
 				indice = append(indice, j-k)
-				k = kmp.next[k-1] + 1
+				k = kmp.Next[k-1] + 1
 			}
 		} else {
-			k = kmp.next[k]
+			k = kmp.Next[k]
 			if k < 0 {
 				j++
 				k++
