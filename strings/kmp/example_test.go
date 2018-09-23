@@ -1,5 +1,10 @@
 package kmp_test
 
+import (
+    "fmt"
+    "github.com/SimpCosm/algorithms/strings/kmp"
+)
+
 func Example() {
     str := "aabaabaaaabbaabaabaaabbaabaabb"
     pattern := "aabb"
