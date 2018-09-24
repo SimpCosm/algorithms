@@ -18,7 +18,7 @@ type KMP struct {
 }
 
 func (kmp *KMP) String() string {
-	return fmt.Sprintf("pattern: %v\nNext: %v", kmp.pattern, kmp.Next)
+	return fmt.Sprintf("pattern: %v\nNext: %v", kmp.Pattern, kmp.Next)
 }
 
 // returns an array containing indexes of matches
